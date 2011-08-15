@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+  	android:layout_width="wrap_content"
+  	android:layout_height="wrap_content"
+  	android:orientation="vertical">
+  
+	<TextView android:layout_width="fill_parent"
+ 	 			android:layout_height="wrap_content"
+ 	 			android:id="@+id/notification"
+ 	 			android:text="@string/paramError"
+ 	 			android:visibility="gone" 
+ 	 			android:paddingBottom="10px"/>
+ 	 			
+	<LinearLayout
+	  	xmlns:android="http://schemas.android.com/apk/res/android"
+  		android:layout_width="fill_parent"
+  		android:layout_height="wrap_content">
+ 	 
+ 	 	<TextView
+			android:layout_width="40px" 
+ 			android:layout_height="wrap_content" 
+			android:text="@string/from"	/>
+	  		
+ 		<EditText
+			android:id="@+id/uniformLow"
+			android:layout_width="65px" 
+ 			android:layout_height="wrap_content" 
+			android:numeric="signed"/>
+		
+		<TextView
+	 		android:layout_height="wrap_content" 
+   	 		android:text="@string/to"
+ 	 		android:layout_marginLeft="10px"
+			android:layout_width="30px"/>
+
+		<EditText
+			android:id="@+id/uniformHigh"
+			android:layout_width="65px" 
+			android:layout_height="wrap_content" 
+			android:numeric="signed"/>
+		
+		<Button 
+			android:text="OK" 
+			android:id="@+id/uniIntOK" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"/>
+	</LinearLayout>
+</LinearLayout>

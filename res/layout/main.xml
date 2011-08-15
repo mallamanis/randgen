@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    
+    >
+    <TextView  
+  		  android:layout_width="fill_parent" 
+ 		   android:layout_height="wrap_content" 
+ 		   android:text="@string/selDistr"
+ 		   android:drawableLeft="@drawable/distr"
+ 		   android:textSize="17px"
+ 		   android:drawablePadding="10px"
+ 		   android:paddingLeft="10px"
+ 		   android:layout_gravity="center"	   
+ 		   />
+ 	<Spinner
+		android:id="@+id/distrSelect"
+		android:layout_width="fill_parent" 
+    	android:layout_height="wrap_content"
+   		android:drawSelectorOnTop="true"
+   		
+    	    	    	    	
+    	/>
+    <TextView  
+  	  android:layout_width="fill_parent" 
+ 	  android:layout_height="wrap_content" 
+ 	  android:text="@string/selSeeder"
+ 	  android:textSize="17px"
+ 	  android:drawableLeft="@drawable/cards"
+ 	  android:drawablePadding="5px"
+ 	  
+ 	  />
+ 	
+ 	<Spinner
+		android:id="@+id/seedSelect"
+		android:layout_width="fill_parent" 
+    	android:layout_height="wrap_content"
+   		android:drawSelectorOnTop="true"
+       	/>
+	
+<Button
+	android:id="@+id/setDistributionParametersButton"
+	android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+	android:text="@string/setDistParam"
+	android:drawableLeft="@drawable/parameter"/>
+	
+<Button
+	android:id="@+id/setSeedButton"
+	android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+	android:text="@string/setSeedParam"
+	android:drawableLeft="@drawable/cardselected"/>
+	
+<Button
+	android:id="@+id/startGeneration"
+	android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+	android:text="@string/startGenerating"
+	android:drawableLeft="@drawable/icon"/>
+	
+	
+    
+</LinearLayout>

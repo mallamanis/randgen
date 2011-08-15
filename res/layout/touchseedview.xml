@@ -1,0 +1,27 @@
+<LinearLayout 	android:id="@+id/LinearLayout01"
+				android:layout_width="fill_parent" 
+				android:layout_height="fill_parent"
+				android:orientation="vertical"
+				xmlns:android="http://schemas.android.com/apk/res/android">
+				
+				<LinearLayout 	android:id="@+id/touchField" 
+								android:layout_width="300px" 
+								android:layout_height="300px"
+								android:background="#F0F0F0"
+								android:layout_gravity="center"/>
+				
+				<ProgressBar 	android:id="@+id/touchSeedingProgress" 
+								style="?android:attr/android:progressBarStyleHorizontal"
+								android:layout_width="200dip" 
+								android:layout_height="wrap_content"								
+								android:max="100"
+								android:progress="0"
+								android:layout_gravity="center"/>
+				
+				<TextView
+						android:id="@+id/touchInfo"
+						android:layout_width="wrap_content" 
+ 						android:layout_height="wrap_content" 
+						android:text="@string/takeTouchSeed"
+						android:paddingBottom="10px"/>
+</LinearLayout>
