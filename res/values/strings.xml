@@ -5,14 +5,14 @@
     <string name="setSeedParam">Create random seed</string>
     <string name="selDistr">Select Distribution</string>
     <string name="selSeeder">Select Seed Provider</string>
-    <string name="startGenerating">Start Generating Random Numbers</string>
+    <string name="startGenerating">Start Generating Random Data</string>
     <string name="distribution">Distribution: </string>
     <string name="seeder">Seeder: </string>
     <string name="app_name">RandGen</string>
-    <string name="app_descr">Generate real-random numbers following various distributions. Real-random numbers are provided by various methods</string>
+    <string name="app_descr">Generate real-random numbers and pass phrases following various distributions. Entropy is provided by various methods</string>
     <string name="generate">Generate!</string>
-    <string name="reseed">Re-seed</string>
-    <string name="from">from</string>
+    <string name="reseed">Re-seed</string><string name="from">from</string>
+    <string name="numWords">Words in phrase</string>
     <string name="to">to</string>
     <string name="mean">Mean</string>
     <string name="std">Standard Deviation</string>
@@ -24,7 +24,7 @@
     <string name="errNoAccelerometer">No accelerometer found. Random seed will be generated with the milliseconds time</string>
     <string name="errNoCompass">No compass found. Random seed will be generated with the milliseconds time</string>
     <string name="unifIntParam">Uniform Integer Parameters</string>
-    <string name="unifFloatParam">Uniform Decimal Parameters</string>
+    <string name="passPhraseParam">Pass Phrase Parameters</string><string name="unifFloatParam">Uniform Decimal Parameters</string>
     <string name="poissonParam">Poisson Parameters</string>
     <string name="normalParam">Normal Decimal Parameters</string>
     <string name="takeAccelSeed">Please shake randomly the phone to produce random seed</string>

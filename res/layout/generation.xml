@@ -54,7 +54,7 @@
 			<TextView 	android:text="@string/generationResults"
 						android:paddingTop="25px"/>			
 		  <Button android:id="@+id/copyNumbers"
-          android:text="Copy Numbers"
+          android:text="Copy Data"
           
           android:layout_width="fill_parent"
           android:layout_height="fill_parent"/>

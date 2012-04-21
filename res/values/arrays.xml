@@ -7,6 +7,7 @@
     	<item>Real (Gaussian) </item>
     	<item>Poisson</item>
     	<item>Integer (Uniform, Non-Repeat)</item>
+    	<item >Pass Phrase</item>
     </string-array>
     
       <string-array name="seedTypes">
