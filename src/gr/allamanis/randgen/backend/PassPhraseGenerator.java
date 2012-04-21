@@ -23,6 +23,8 @@
 
 package gr.allamanis.randgen.backend;
 
+import gr.allamanis.randgen.randomMain;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,7 +51,7 @@ public class PassPhraseGenerator extends RandomGenerator {
 	 *  the number of words in the phrase
 	 */
 	protected int numWords = 4;
-	protected int dictSize = 98326;
+	protected int dictSize = 98326; // TODO: make this dynamic (without being horribly memory inefficient)
 	
 	private Dialog dialog;
 
@@ -58,7 +60,7 @@ public class PassPhraseGenerator extends RandomGenerator {
 	private void initDict() throws IOException {
 		dict = new String[dictSize];
 		
-		AssetManager am = this.dialog.getContext().getAssets();
+		AssetManager am = randomMain.getInstance().getAssets();
 		
 		try {
 			InputStream is = am.open("british-english");
@@ -80,8 +82,6 @@ public class PassPhraseGenerator extends RandomGenerator {
 		} catch (IOException e) {
 			throw e;
 		}
-	    // Store the dictionary in dict
-	    //dict = lines.toArray( dict );
 	}
 	
 	@Override

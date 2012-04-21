@@ -54,7 +54,12 @@ public class randomMain extends Activity {
 	private Spinner selectDistribution;
 	private Spinner selectSeeder;
 	
-	
+	private static randomMain singleton;
+
+    public static randomMain getInstance(){
+        return singleton;
+    }
+
 	
     /** Called when the activity is first created. */
     @Override
@@ -62,6 +67,9 @@ public class randomMain extends Activity {
         
     	/**Create local UI objects */
     	super.onCreate(savedInstanceState);
+    	
+    	singleton = this;
+
     	setContentView(R.layout.main);
     	
     	Eula.show(this);
