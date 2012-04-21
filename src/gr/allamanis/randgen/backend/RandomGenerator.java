@@ -23,7 +23,7 @@
 
 package gr.allamanis.randgen.backend;
 
-import java.util.Random;
+import java.security.SecureRandom;
 import android.app.Activity;
 
 /** 
@@ -33,12 +33,12 @@ public abstract class RandomGenerator {
   /* {author=Miltiadis Allamanis}*/
 
 
-  protected Random generator;
+  protected SecureRandom generator;
 
     protected SeedProvider mySeedProvider;
 
   public RandomGenerator(){
-	generator=new Random();  
+	generator=new SecureRandom();  
   }
   /** 
    *  returns the next random result from the generator in a String
