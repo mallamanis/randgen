@@ -26,11 +26,12 @@ package gr.allamanis.randgen;
 import gr.allamanis.randgen.backend.RandGenApp;
 import gr.allamanis.randgen.backend.RandomGenerator;
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Context;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
-import android.text.ClipboardManager;
+import android.content.ClipboardManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -93,15 +94,11 @@ public class RandomGeneration extends Activity {
     	generate.setOnClickListener(generateListener);
     	
     	OnClickListener copyListener= new OnClickListener(){
-
 			@Override
 			public void onClick(View v) {
 				ClipboardManager clip= (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
-				clip.setText(resultPlaceholder.getText());
-				
+				clip.setPrimaryClip(ClipData.newPlainText("Random data from randgen", resultPlaceholder.getText()));
 			}
-    		
-    		
     	};
     	copy.setOnClickListener(copyListener);
     	

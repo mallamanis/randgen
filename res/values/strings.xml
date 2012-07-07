@@ -38,6 +38,9 @@
     <string name="eula_accept">Accept</string>
     <string name="eula_refuse">Don\'t Accept</string>
     <string name="allow_repeats">Allow repeated values?</string>
+    <string name="copy_data">Copy Data</string>
+    <string name="default_words">4</string>
+    <string name="ok">OK</string>
     
     
 </resources>

@@ -10,9 +10,9 @@
  		   android:layout_height="wrap_content" 
  		   android:text="@string/selDistr"
  		   android:drawableLeft="@drawable/distr"
- 		   android:textSize="17px"
- 		   android:drawablePadding="10px"
- 		   android:paddingLeft="10px"
+ 		   android:textSize="17sp"
+ 		   android:drawablePadding="10dp"
+ 		   android:paddingLeft="10dp"
  		   android:layout_gravity="center"	   
  		   />
  	<Spinner
@@ -27,9 +27,9 @@
   	  android:layout_width="fill_parent" 
  	  android:layout_height="wrap_content" 
  	  android:text="@string/selSeeder"
- 	  android:textSize="17px"
+ 	  android:textSize="17sp"
  	  android:drawableLeft="@drawable/cards"
- 	  android:drawablePadding="5px"
+ 	  android:drawablePadding="5dp"
  	  
  	  />
  	
@@ -62,12 +62,10 @@
     android:checked = "true" />
 
 <Button
-	android:id="@+id/startGeneration"
-	android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-	android:text="@string/startGenerating"
-	android:drawableLeft="@drawable/icon"/>
-	
-	
+    android:id="@+id/startGeneration"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:drawableLeft="@drawable/icon"
+    android:text="@string/startGenerating" />
     
 </LinearLayout>

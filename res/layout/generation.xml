@@ -5,72 +5,66 @@
     android:layout_height="wrap_content"
     android:scrollbars="vertical">
 
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:layout_height="wrap_content">
   
-	<TableLayout android:layout_width="fill_parent"
-				 android:layout_height="wrap_content"
-				 
-				 android:stretchColumns="1"
-				 >
-		<TableRow >
-			<TextView android:text="@string/distribution"/> 
-			<TextView 	android:id="@+id/distributionName" 
-						android:gravity="right" 
-						android:paddingRight="15px"
-						android:layout_width="fill_parent"
-						android:singleLine="false"
-						android:maxWidth="5px"
-						android:text="haaaaaaaaaaaaaaaasssssssssssssss"
-						/>
-		
-		</TableRow>		
-		<View 	android:layout_height="2px"
-				android:background="#FF909090"/>
-		 <TableRow>
-			<TextView android:text="@string/seeder"/> 
-			<TextView 	android:id="@+id/seederName" 
-						android:gravity="right" 
-						android:paddingRight="15px"/>
-		
-		</TableRow>		
-		<View 	android:layout_height="2px"
-				android:background="#FF909090"/>
-		<TableRow>
-			<Button android:id="@+id/reseedButton"
-					android:text="@string/reseed"/>
-			<Button android:id="@+id/generateNext"
-					android:text="@string/generate"
-					
-					android:layout_width="fill_parent"/>	
-					
-		
-		</TableRow>		
-		<View 	android:layout_height="2px"
-				android:background="#FF909090"/>
-		<TableRow> 
-			<TextView 	android:text="@string/generationResults"
-						android:paddingTop="25px"/>			
-		  <Button android:id="@+id/copyNumbers"
-          android:text="Copy Data"
-          
-          android:layout_width="fill_parent"
-          android:layout_height="fill_parent"/>
-		</TableRow>
-		<View 	android:layout_height="2px"
-				android:background="#66808080"/>
-		
-					
-		<TextView android:id="@+id/generatedNumber"
-					android:textSize="30px" 
+<TableLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:stretchColumns="1"
+			 >
+	<TableRow >
+		<TextView android:text="@string/distribution"/> 
+		<TextView 	android:id="@+id/distributionName" 
+					android:gravity="right" 
+					android:paddingRight="15dp"
+					android:layout_width="fill_parent"
+					android:singleLine="false"
+					android:maxWidth="5dp"
 					/>
-			
-				
-				 
-	</TableLayout>
 	
-</LinearLayout>
+	</TableRow>		
+	<View 	android:layout_height="2dp"
+			android:background="#FF909090"/>
+	 <TableRow>
+		<TextView android:text="@string/seeder"/> 
+		<TextView 	android:id="@+id/seederName" 
+					android:gravity="right" 
+					android:paddingRight="15dp"/>
+	
+	</TableRow>		
+	<View 	android:layout_height="2dp"
+			android:background="#FF909090"/>
+	<TableRow>
+		<Button android:id="@+id/reseedButton"
+				android:text="@string/reseed"/>
+		<Button android:id="@+id/generateNext"
+				android:text="@string/generate"
+				
+				android:layout_width="fill_parent"/>	
+				
+	
+	</TableRow>		
+	<View 	android:layout_height="2dp"
+			android:background="#FF909090"/>
+	<TableRow> 
+		<TextView 	android:text="@string/generationResults"
+					android:paddingTop="25dp"/>			
+	  <Button android:id="@+id/copyNumbers"
+         android:text="@string/copy_data"
+         
+         android:layout_width="fill_parent"
+         android:layout_height="fill_parent"/>
+	</TableRow>
+	<View 	android:layout_height="2dp"
+			android:background="#66808080"/>
+	
+				
+	<TextView android:id="@+id/generatedNumber"
+				android:textSize="20sp" 
+				/>
+		
+			
+			 
+</TableLayout>
 
 </ScrollView>
