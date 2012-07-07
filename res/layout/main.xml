@@ -53,7 +53,14 @@
     android:layout_height="wrap_content" 
 	android:text="@string/setSeedParam"
 	android:drawableLeft="@drawable/cardselected"/>
-	
+
+<CheckBox
+    android:id="@+id/chkAllowRepeats"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/allow_repeats" 
+    android:checked = "true" />
+
 <Button
 	android:id="@+id/startGeneration"
 	android:layout_width="fill_parent" 

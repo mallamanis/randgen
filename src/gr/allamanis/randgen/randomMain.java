@@ -27,23 +27,14 @@ package gr.allamanis.randgen;
 
 import android.app.Activity;
 import android.content.Intent;
-
 import android.os.Bundle;
-
-
 import android.view.View;
 import android.widget.*;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.view.View.OnClickListener;
 
-
-
 import gr.allamanis.randgen.backend.RandGenApp;
 import gr.allamanis.randgen.backend.SeedProvider;
-
-
-
-
 
 public class randomMain extends Activity {
 	
@@ -78,8 +69,7 @@ public class randomMain extends Activity {
     	setGeneratorParameters=(Button) this.findViewById(R.id.setDistributionParametersButton);
     	setSeed =(Button) this.findViewById(R.id.setSeedButton);
     	startGenerator = (Button) this.findViewById(R.id.startGeneration);
-    	
-    	
+    	final CheckBox chkRepeats = (CheckBox) findViewById(R.id.chkAllowRepeats); 
     	
     	//Create listeners
     	
@@ -109,12 +99,13 @@ public class randomMain extends Activity {
 			public void onClick(View arg0) {				
 				if (RandGenApp.getRandomGenerator()!=null)
 					if (RandGenApp.getRandomGenerator().getMySeedProvider()!=null){
-							//TODO: Delete and instead start new activity
-							Intent intent= new Intent();
-							intent.setClassName("gr.allamanis.randgen","gr.allamanis.randgen.RandomGeneration");
-							thisActivity.startActivity(intent);
-							//test.setText(RandGenApp.getRandomGenerator().getNext());
-							return;
+						RandGenApp.getRandomGenerator().repeating = chkRepeats.isChecked();
+						
+						//TODO: Delete and instead start new activity
+						Intent intent= new Intent();
+						intent.setClassName("gr.allamanis.randgen","gr.allamanis.randgen.RandomGeneration");
+						thisActivity.startActivity(intent);
+						return;
 					};
 				Toast.makeText(thisActivity, R.string.errNoDistr, Toast.LENGTH_LONG);
 				//TODO: Determine if parameters have been set and the Seeder has been seeded...

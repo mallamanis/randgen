@@ -16,8 +16,7 @@ public class RandGenApp {
   public static final int GENERATOR_UNIFORM_FLOAT=2;
   public static final int GENERATOR_NORMAL=3;
   public static final int GENERATOR_POISSON=4;
-  public static final int GENERATOR_UNIFORM_NOREPEAT=5;
-  public static final int GENERATOR_PASS_PHRASE = 6;
+  public static final int GENERATOR_PASS_PHRASE = 5;
   
   public static final int SEEDER_ACCELEROMETER=1;
   public static final int SEEDER_LINUX_RNG=2;
@@ -39,9 +38,6 @@ public class RandGenApp {
 	  	case GENERATOR_POISSON:
 	  		randomGenerator=new PoissonIntegerGenerator();
 	  		break;	  
-	  	case GENERATOR_UNIFORM_NOREPEAT:
-	  		randomGenerator=new UniformNonRepeatingInteger();
-	  		break;
 	  	case GENERATOR_PASS_PHRASE:
 	  		randomGenerator =new PassPhraseGenerator();
 	  		break;
