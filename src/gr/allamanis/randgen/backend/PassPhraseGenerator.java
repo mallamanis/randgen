@@ -29,6 +29,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -49,37 +50,44 @@ public class PassPhraseGenerator extends RandomGenerator {
 	 *  the number of words in the phrase
 	 */
 	protected int numWords = 4;
-	protected int dictSize = 98326; // TODO: make this dynamic (without being horribly memory inefficient)
 	
 	private Dialog dialog;
 
 	protected String[] dict;
 	
 	private void initDict() throws IOException {
-		dict = new String[dictSize];
+		ArrayList<String> dictList = new ArrayList<String>();
 		
 		AssetManager am = randomMain.getInstance().getAssets();
 		
+		InputStream is = null;
+		InputStreamReader isr = null;
+		BufferedReader br = null;
 		try {
-			InputStream is = am.open("british-english");
-			InputStreamReader isr = new InputStreamReader(is);
-			BufferedReader br = new BufferedReader(isr);
+			is = am.open("british-english");
+			isr = new InputStreamReader(is);
+			br = new BufferedReader(isr);
 			
 			// Slurp the dictionary into the lines list
 			String contents = br.readLine();
 			int i = 0;
 		    while (contents != null)  
 		    {
-		    	dict[i] = contents;
+		    	dictList.add(contents);
 		    	i = i + 1;
 		        contents = br.readLine();
 		    }
-		    br.close();
-		    isr.close();
-		    is.close();
 		} catch (IOException e) {
 			throw e;
+		} finally {
+			br.close();
+		    isr.close();
+		    is.close();
 		}
+		
+		// Convert dictList into array
+		dict = new String[dictList.size()];
+		dictList.toArray(dict);
 	}
 	
 	@Override
