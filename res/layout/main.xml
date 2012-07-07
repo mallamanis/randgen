@@ -15,14 +15,15 @@
  		   android:paddingLeft="10dp"
  		   android:layout_gravity="center"	   
  		   />
+    
  	<Spinner
 		android:id="@+id/distrSelect"
 		android:layout_width="fill_parent" 
-    	android:layout_height="wrap_content"
+    	android:layout_height="60dp"
    		android:drawSelectorOnTop="true"
-   		
-    	    	    	    	
+   		android:textSize="17sp"
     	/>
+ 	
     <TextView  
   	  android:layout_width="fill_parent" 
  	  android:layout_height="wrap_content" 
@@ -30,15 +31,14 @@
  	  android:textSize="17sp"
  	  android:drawableLeft="@drawable/cards"
  	  android:drawablePadding="5dp"
- 	  
  	  />
  	
  	<Spinner
-		android:id="@+id/seedSelect"
-		android:layout_width="fill_parent" 
-    	android:layout_height="wrap_content"
-   		android:drawSelectorOnTop="true"
-       	/>
+ 	    android:id="@+id/seedSelect"
+ 	    android:layout_width="fill_parent"
+ 	    android:layout_height="60dp"
+ 	    android:drawSelectorOnTop="true"
+ 	    android:textSize="17sp" />
 	
 <Button
 	android:id="@+id/setDistributionParametersButton"
