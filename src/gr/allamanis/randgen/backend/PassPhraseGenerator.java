@@ -29,8 +29,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -118,6 +116,7 @@ public class PassPhraseGenerator extends RandomGenerator {
 	
 	@Override
 	public void setParameters(final Activity myActivity) {
+		
 		dialog=new Dialog(myActivity);
 		dialog.setTitle(gr.allamanis.randgen.R.string.passPhraseParam);
 		dialog.setContentView(gr.allamanis.randgen.R.layout.passphrase);

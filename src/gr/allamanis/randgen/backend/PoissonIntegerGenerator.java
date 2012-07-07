@@ -73,6 +73,7 @@ public String getNext() {
 
 @Override
 public void setParameters(Activity myActivity) {
+	
 	dialog=new Dialog(myActivity);
 	dialog.setTitle(gr.allamanis.randgen.R.string.poissonParam);
 	dialog.setContentView(gr.allamanis.randgen.R.layout.poissondistr);

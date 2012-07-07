@@ -88,7 +88,7 @@ public class CompassSeeder extends SeedProvider {
 					if(event.values[0]!=0 && event.values[1]!=0 && event.values[2]!=0){
 					 	sampleNo++;
 					 	dialog.incrementProgressBy(1);
-						float randNum = event.values[SensorManager.DATA_X]*event.values[SensorManager.DATA_Y]/event.values[SensorManager.DATA_Z] +event.values[2]*(event.timestamp % 13);
+						float randNum = event.values[0]*event.values[1]/event.values[2] +event.values[2]*(event.timestamp % 13);
 						generatedSeed=(generatedSeed * Float.floatToRawIntBits(randNum)) % (generatedSeed + Float.floatToRawIntBits(randNum));
 					};
 					

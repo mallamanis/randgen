@@ -23,7 +23,6 @@
 
 package gr.allamanis.randgen.backend;
 
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.view.View;
@@ -32,14 +31,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-
-
 /** 
  *  A RandomGenerator that produces random integers
  */
 public class UniformIntegerGenerator extends RandomGenerator {
   /* {author=Miltiadis Allamanis}*/
-
 
   /** 
    *  the smallest integer to be created
@@ -89,16 +85,10 @@ public void setParameters(final Activity myActivity) {
 			}catch(Exception e){
 				TextView done=(TextView)dialog.findViewById(gr.allamanis.randgen.R.id.notification);
 				done.setVisibility(View.VISIBLE);
-								
 			}
-			
 		}		
 	};
 	done.setOnClickListener(doneButton);	
-	
-	
-	
 }
-
 
 }
