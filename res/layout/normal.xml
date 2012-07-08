@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
- <LinearLayout
+<LinearLayout
  		xmlns:android="http://schemas.android.com/apk/res/android"
  		android:layout_width="wrap_content"
  		android:layout_height="wrap_content"
  		android:paddingBottom="10dp" 
  		android:visibility="gone" 
-		android:id="@+id/uniformFloatParams"
+		android:id="@+id/normalParams"
  		>
- 
-	 <TextView
+ 		
+	 	<TextView
 		android:layout_width="40dp" 
 		android:layout_height="wrap_content" 
-		android:text="@string/from"	/>
- 		
-	<EditText
-		android:id="@+id/uniformFLow"
+		android:text="@string/mean"	/>
+  		
+		<EditText
+		android:id="@+id/normalMean"
 		android:layout_width="65dp" 
 		android:layout_height="wrap_content" 
 		android:inputType="numberDecimal"/>
 	
 	<TextView
  		android:layout_height="wrap_content" 
-  	 	android:text="@string/to"
+  	 	android:text="@string/std"
 	 	android:layout_marginLeft="10dp"
-		android:layout_width="30dp"/>
+		android:layout_width="70dp"
+		android:layout_marginTop="-10dp"/>
 
 	<EditText
-		android:id="@+id/uniformFHigh"
+		android:id="@+id/normalStd"
 		android:layout_width="65dp" 
 		android:layout_height="wrap_content" 
 		android:inputType="numberDecimal"/>

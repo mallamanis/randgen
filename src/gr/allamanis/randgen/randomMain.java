@@ -25,36 +25,50 @@
 package gr.allamanis.randgen;
 
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
-
+import android.content.SharedPreferences;
 import android.os.Bundle;
-
-
 import android.view.View;
 import android.widget.*;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.view.View.OnClickListener;
 
-
-
+import gr.allamanis.randgen.backend.AccelerometerSeeder;
+import gr.allamanis.randgen.backend.CompassSeeder;
+import gr.allamanis.randgen.backend.LinuxRandomSeeder;
 import gr.allamanis.randgen.backend.RandGenApp;
+import gr.allamanis.randgen.backend.RandomGenerator;
 import gr.allamanis.randgen.backend.SeedProvider;
-
-
-
-
+import gr.allamanis.randgen.backend.TouchSeeder;
+import gr.allamanis.randgen.backend.UniformIntegerGenerator;
+import gr.allamanis.randgen.backend.UniformFloatGenerator;
+import gr.allamanis.randgen.backend.PoissonIntegerGenerator;
+import gr.allamanis.randgen.backend.NormalFloatGenerator;
+import gr.allamanis.randgen.backend.PassPhraseGenerator;
 
 public class randomMain extends Activity {
-	
-	private Button setGeneratorParameters;
 	private Button setSeed;
 	private Button startGenerator;
 	private Activity thisActivity=this;
 	private Spinner selectDistribution;
 	private Spinner selectSeeder;
 	
-	
+	private static randomMain singleton;
+	private int currentLayout;
+
+    public static randomMain getInstance(){
+        return singleton;
+    }
+
+    private ArrayList<RandomGenerator> Generators;
+    private ArrayList<SeedProvider> Seeders;
+    
+    // index into arrays - used for saving preferences
+    private int generatorNum = -1; 
+    private int seederNum = -1;
 	
     /** Called when the activity is first created. */
     @Override
@@ -62,36 +76,39 @@ public class randomMain extends Activity {
         
     	/**Create local UI objects */
     	super.onCreate(savedInstanceState);
+    	
+    	singleton = this;
+
     	setContentView(R.layout.main);
     	
     	Eula.show(this);
     	
+    	// Populate generators
+    	Generators = new ArrayList<RandomGenerator>();
+    	Generators.add(new UniformIntegerGenerator());
+    	Generators.add(new UniformFloatGenerator());
+    	Generators.add(new NormalFloatGenerator());
+    	Generators.add(new PoissonIntegerGenerator());
+    	Generators.add(new PassPhraseGenerator());
+    	
+    	// Populate seeders
+    	Seeders = new ArrayList<SeedProvider>();
+    	Seeders.add(new LinuxRandomSeeder());
+    	Seeders.add(new AccelerometerSeeder());
+    	Seeders.add(new CompassSeeder());
+    	Seeders.add(new TouchSeeder());
+    	
     	//Set Button variables
-    	setGeneratorParameters=(Button) this.findViewById(R.id.setDistributionParametersButton);
     	setSeed =(Button) this.findViewById(R.id.setSeedButton);
     	startGenerator = (Button) this.findViewById(R.id.startGeneration);
-    	
-    	
+    	final CheckBox chkRepeats = (CheckBox) findViewById(R.id.chkAllowRepeats); 
     	
     	//Create listeners
-    	
-    	OnClickListener setGeneratorParametersListner=new OnClickListener(){
-			@Override
-			public void onClick(View arg0) {	
-				if (RandGenApp.getRandomGenerator()!=null)
-					RandGenApp.getRandomGenerator().setParameters(thisActivity);
-				else
-					Toast.makeText(thisActivity, R.string.errNoDistr, Toast.LENGTH_LONG);
-			}    		
-    	};
-    	setGeneratorParameters.setOnClickListener(setGeneratorParametersListner);
-    	
     	
     	OnClickListener setSeedListener=new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {	
 				RandGenApp.getRandomGenerator().getMySeedProvider().getNewSeed(thisActivity);
-				
 			}    		
     	};
     	setSeed.setOnClickListener(setSeedListener);
@@ -99,21 +116,27 @@ public class randomMain extends Activity {
     	OnClickListener startGeneratorListener=new OnClickListener(){
 			@Override
 			public void onClick(View arg0) {				
-				if (RandGenApp.getRandomGenerator()!=null)
-					if (RandGenApp.getRandomGenerator().getMySeedProvider()!=null){
-							//TODO: Delete and instead start new activity
-							Intent intent= new Intent();
-							intent.setClassName("gr.allamanis.randgen","gr.allamanis.randgen.RandomGeneration");
-							thisActivity.startActivity(intent);
-							//test.setText(RandGenApp.getRandomGenerator().getNext());
-							return;
+				if (RandGenApp.getRandomGenerator()!=null) { // should never fail
+					if (RandGenApp.getRandomGenerator().getMySeedProvider()!=null){ // should never fail
+						if (RandGenApp.getRandomGenerator().getMySeedProvider().isSeeded()) {
+							RandGenApp.getRandomGenerator().repeating = chkRepeats.isChecked();
+							if(RandGenApp.getRandomGenerator().setParameters(singleton)) {
+								//TODO: Delete and instead start new activity
+								Intent intent= new Intent();
+								intent.setClassName("gr.allamanis.randgen","gr.allamanis.randgen.RandomGeneration");
+								thisActivity.startActivity(intent);
+								return;
+							}  // else - setParameters failed and will have created a toast
+						} else {
+							Toast error = Toast.makeText(singleton, "Please seed first.", Toast.LENGTH_SHORT);
+							error.show();
+						}
 					};
-				Toast.makeText(thisActivity, R.string.errNoDistr, Toast.LENGTH_LONG);
-				//TODO: Determine if parameters have been set and the Seeder has been seeded...
-			}    		
+				}
+				//TODO: Determine if the Seeder has been seeded...
+			}
     	};
     	startGenerator.setOnClickListener(startGeneratorListener);
-    	
         
     	//Set Spinner variables
     	selectDistribution=(Spinner)this.findViewById(R.id.distrSelect);
@@ -123,59 +146,80 @@ public class randomMain extends Activity {
     	selectDistribution.setPrompt(getText(R.string.selDistr));
     	selectSeeder.setPrompt(getText(R.string.selSeeder));
     	
-    	//Configure Distribution Spinner
-        ArrayAdapter<CharSequence> distributionAdapter = ArrayAdapter.createFromResource(
-                this, R.array.distributionTypes, android.R.layout.simple_spinner_item);
+    	// Fill Distribution Spinner with the name of each generator in Generators
+        ArrayAdapter<CharSequence> distributionAdapter = new ArrayAdapter <CharSequence> (this, android.R.layout.simple_spinner_item);
         distributionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        for (RandomGenerator g : Generators) {
+    		distributionAdapter.add(g.getName());
+    	}
         selectDistribution.setAdapter(distributionAdapter);
         
         OnItemSelectedListener distributionSelectListener=new OnItemSelectedListener(){
-        	
 			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
-				SeedProvider oldSeeder=RandGenApp.getRandomGenerator().getMySeedProvider();
-				RandGenApp.createRandomGenerator(arg2+1).setSeedProvider(oldSeeder); //The actual ID as defined by RandGenApp, is as it is sorted
-				//TODO: Change to something better?
+			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				generatorNum = arg2; // for prefs
+				
+				SeedProvider currentSeeder=RandGenApp.getRandomGenerator().getMySeedProvider();
+				RandGenApp.setRandomGenerator(Generators.get(arg2)).setSeedProvider(currentSeeder);
+				
+				singleton.findViewById(currentLayout).setVisibility(View.GONE);
+				currentLayout = Generators.get(arg2).getParamsLayoutID();
+				singleton.findViewById(currentLayout).setVisibility(View.VISIBLE);
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {// TODO Do we add something here?
 				
 			};
-        
         };
         selectDistribution.setOnItemSelectedListener(distributionSelectListener);
-        
     	
-        ArrayAdapter<CharSequence> seederAdapter = ArrayAdapter.createFromResource(
-                this, R.array.seedTypes, android.R.layout.simple_spinner_item);
+        // Fill Seeder Spinner with the name of each seeder in Seeders
+        ArrayAdapter<CharSequence> seederAdapter = new ArrayAdapter <CharSequence> (this, android.R.layout.simple_spinner_item);
         seederAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        for (SeedProvider s : Seeders) {
+    		seederAdapter.add(s.getName());
+    	}
         selectSeeder.setAdapter(seederAdapter);
         
         OnItemSelectedListener seederSelectListener=new OnItemSelectedListener(){
-        	
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				RandGenApp.createSeedProvider(arg2+1); //The actual ID as defined by RandGenApp, is as it is sorted
-				
+				seederNum = arg2;
+				RandGenApp.getRandomGenerator().setSeedProvider(Seeders.get(arg2)); //The actual ID as defined by RandGenApp, is as it is sorted
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {// TODO Do we add something here?
 				
 			};
-        
         };
         selectSeeder.setOnItemSelectedListener(seederSelectListener);
-    	
         
-        //Set defaults
-        RandGenApp.createRandomGenerator(1);
-        RandGenApp.createSeedProvider(1);
-           
+        // Restore previous session / set defaults
+        SharedPreferences settings = getPreferences(MODE_PRIVATE);
+    	generatorNum = settings.getInt("generator", 0); // default generator = 0
+    	selectDistribution.setSelection(generatorNum);
+    	seederNum = settings.getInt("seeder", 0);
+    	selectSeeder.setSelection(seederNum);
+    	RandGenApp.setRandomGenerator(Generators.get(generatorNum)).setSeedProvider(Seeders.get(seederNum));
+    	((CheckBox) findViewById(R.id.chkAllowRepeats)).setChecked(settings.getBoolean("allowRepeats", true));
+    	
+        currentLayout = RandGenApp.getRandomGenerator().getParamsLayoutID(); // the spinner callback will make this view visible
     }
-  		
+    
+    @Override
+    protected void onStop(){
+    	super.onStop();
 
+    	SharedPreferences settings = getPreferences(MODE_PRIVATE);
+    	SharedPreferences.Editor editor = settings.edit();
+    	
+    	editor.putBoolean("allowRepeats", ((CheckBox) findViewById(R.id.chkAllowRepeats)).isChecked() );
+    	editor.putInt("generator", generatorNum);
+    	editor.putInt("seeder", seederNum);
+    	
+    	editor.commit();
+	}
 }

@@ -25,77 +25,61 @@
 package gr.allamanis.randgen.backend;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
 /** 
  *  A RandomGenerator that produces integers following the Poisson distribution
  */
 public class PoissonIntegerGenerator extends RandomGenerator {
-  /* {author=Miltiadis Allamanis}*/
-
-
-  public double lambda;
-  
-  private boolean parametrized=false;
-  
-  private Dialog dialog;
-
-@Override
-public String getDescription() {
-	return "Creates random numbers following the Poisson distribution";
-}
-
-@Override
-public String getName() {
-	return "Poisson Distribution";
-}
-
-@Override
-public String getNext() {
-	if (!parametrized) return "Parameters not set";
+	/* {author=Miltiadis Allamanis}*/
 	
-	//Knuth's method
-    double L = Math.exp(-lambda);
-    double p = 1;
-    int k = 0;
-    do {
-            k++;
-            p *= generator.nextDouble();
-    } while (p >= L);
-
-    return Integer.toString(k - 1);
-}
-
-@Override
-public void setParameters(Activity myActivity) {
-	dialog=new Dialog(myActivity);
-	dialog.setTitle(gr.allamanis.randgen.R.string.poissonParam);
-	dialog.setContentView(gr.allamanis.randgen.R.layout.poissondistr);
-	dialog.show();
-	Button done=(Button)dialog.findViewById(gr.allamanis.randgen.R.id.poissonOK);
-	OnClickListener doneButton=new OnClickListener(){
-		@Override
-		public void onClick(View v) {
-			try{
-				EditText edit =(EditText) dialog.findViewById(gr.allamanis.randgen.R.id.poissonMean);
-				lambda=Double.parseDouble(edit.getText().toString());				
-				parametrized=true;
-				dialog.dismiss();
-			}catch(Exception e){
-				TextView done=(TextView)dialog.findViewById(gr.allamanis.randgen.R.id.notification);
-				done.setVisibility(View.VISIBLE);
-			}
-			
-		}		
-	};
-	done.setOnClickListener(doneButton);
 	
-}
+	public double lambda;
+	private boolean parametrized=false;
 
+	@Override
+	public String getDescription() {
+		return "Creates random numbers following the Poisson distribution";
+	}
+	
+	@Override
+	public String getName() {
+		return "Poisson Distribution";
+	}
 
+	@Override
+	public int getParamsLayoutID() {
+		return  gr.allamanis.randgen.R.id.poissonParams;
+	}
+	
+	@Override
+	public String getNext() {
+		if (!parametrized) return "Parameters not set";
+		
+		//Knuth's method
+	    double L = Math.exp(-lambda);
+	    double p = 1;
+	    int k = 0;
+	    do {
+	            k++;
+	            p *= generator.nextDouble();
+	    } while (p >= L);
+	
+	    return Integer.toString(k - 1);
+	}
+	
+	@Override
+	public boolean setParameters(final Activity myActivity) {
+		try{
+			EditText edit =(EditText) myActivity.findViewById(gr.allamanis.randgen.R.id.poissonMean);
+			lambda=Double.parseDouble(edit.getText().toString());				
+			parametrized=true;
+			return true;
+		}catch(Exception e){
+			Toast error = Toast.makeText(myActivity, gr.allamanis.randgen.R.string.paramError, Toast.LENGTH_SHORT);
+			error.show();
+			return false;
+		}
+	}
 }

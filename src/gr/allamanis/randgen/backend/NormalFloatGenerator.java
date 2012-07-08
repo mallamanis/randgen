@@ -24,79 +24,66 @@
 package gr.allamanis.randgen.backend;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
 /** 
  *  A RandomGenerator that produces float numbers following the normal distribution
  */
 public class NormalFloatGenerator extends RandomGenerator {
-  /* {author=Miltiadis Allamanis}*/
-
-
-  /** 
-   *  the mean (mu) of the normal distribution
-   */
-  private double mean;
-
-  /** 
-   *  the standard deviation (sigma) of the Normal
-   */
-  private double std;
-  
-  private boolean parametrized=false;
-  
-  private Dialog dialog;
-
-@Override
-public String getDescription() {
-	return "Produces random numbers that follow the normal distribution";
-}
-
-@Override
-public String getName() {
-	return "Normal (Gaussian)";
-}
-
-@Override
-public String getNext() {
-	if (parametrized)
-		return Double.toString(mean+std*this.generator.nextGaussian());
-	else
-		return "Parameters not set";
-}
-
-@Override
-public void setParameters(Activity myActivity) {
-	dialog=new Dialog(myActivity);
-	dialog.setTitle(gr.allamanis.randgen.R.string.normalParam);
-	dialog.setContentView(gr.allamanis.randgen.R.layout.normaldistr);
-	dialog.show();
-	Button done=(Button)dialog.findViewById(gr.allamanis.randgen.R.id.NormOK);
-	OnClickListener doneButton=new OnClickListener(){
-		@Override
-		public void onClick(View v) {
-			try{
-				EditText edit =(EditText) dialog.findViewById(gr.allamanis.randgen.R.id.normalMean);
-				mean=Double.parseDouble(edit.getText().toString());
-				edit =(EditText) dialog.findViewById(gr.allamanis.randgen.R.id.normalStd);
-				std=Double.parseDouble(edit.getText().toString());
-				parametrized=true;
-				dialog.dismiss();
-			}catch(Exception e){
-				TextView done=(TextView)dialog.findViewById(gr.allamanis.randgen.R.id.notification);
-				done.setVisibility(View.VISIBLE);
-			}
-			
-		}		
-	};
-	done.setOnClickListener(doneButton);
+	/* {author=Miltiadis Allamanis}*/
 	
-}
-
+	
+	/** 
+	 *  the mean (mu) of the normal distribution
+	 */
+	private double mean;
+	
+	/** 
+	 *  the standard deviation (sigma) of the Normal
+	 */
+	private double std;
+	  
+	private boolean parametrized=false;
+	  
+	@Override
+	public String getDescription() {
+		return "Produces random numbers that follow the normal distribution";
+	}
+	
+	@Override
+	public String getName() {
+		return "Normal (Gaussian)";
+	}
+	
+	@Override
+	public int getParamsLayoutID() {
+		return  gr.allamanis.randgen.R.id.normalParams;
+	}
+	
+	@Override
+	public String getNext() {
+		if (parametrized)
+			return Double.toString(mean+std*this.generator.nextGaussian());
+		else
+			return "Parameters not set";
+	}
+	
+	@Override
+	public boolean setParameters(final Activity myActivity) {
+		try{
+			EditText edit =(EditText) myActivity.findViewById(gr.allamanis.randgen.R.id.normalMean);
+			mean=Double.parseDouble(edit.getText().toString());
+			edit =(EditText) myActivity.findViewById(gr.allamanis.randgen.R.id.normalStd);
+			std=Double.parseDouble(edit.getText().toString());
+			parametrized=true; 
+			// TODO: check mean and std are reasonable
+			return true;
+		}catch(Exception e){
+			Toast error = Toast.makeText(myActivity, gr.allamanis.randgen.R.string.paramError, Toast.LENGTH_SHORT);
+			error.show();
+			return false;
+		}
+	}
 
 }
