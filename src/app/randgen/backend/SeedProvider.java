@@ -21,53 +21,56 @@
  * THE SOFTWARE.
  */
 
+package app.randgen.backend;
 
-package gr.allamanis.randgen.backend;
 import android.app.Activity;
 
-/** 
- *  An abstract object that represents a seed getting method
+/**
+ * An abstract object that represents a seed getting method
  */
 public abstract class SeedProvider {
-  /* {author=Miltiadis Allamanis}*/
+	/* {author=Miltiadis Allamanis} */
 
+	/**
+	 * contains the seed that has been calculated. If nothing has been
+	 * calculated then it contains 0
+	 */
+	protected long seed = 0;
 
-  /** 
-   *  contains the seed that has been calculated. If nothing has been calculated then it contains 0
-   */
-  protected long seed = 0;
+	protected RandomGenerator myGenerator;
 
-  protected RandomGenerator myGenerator;
+	public void SetMyGenerator(RandomGenerator theGenerator) {
+		this.myGenerator = theGenerator;
+	}
 
-  public void SetMyGenerator(RandomGenerator theGenerator){
-	  this.myGenerator=theGenerator;
-  }
-  /** 
-   *  returns a String containing the name of the SeedProvider
-   */
-  public abstract String getName();
+	/**
+	 * returns a String containing the name of the SeedProvider
+	 */
+	public abstract String getName();
 
-  /** 
-   *  returns the description of the seeder
-   */
-  public abstract String getDescription();
+	/**
+	 * returns the description of the seeder
+	 */
+	public abstract String getDescription();
 
-  /** 
-   *  Takes as argument the Android Context so that it can present the appropriate dialogs (e.g. progress bars, prompts etc.). When it is finished it calls the RandomGenerator.getSeed()
-   */
-  public abstract void getNewSeed(Activity myActivity);
+	/**
+	 * Takes as argument the Android Context so that it can present the
+	 * appropriate dialogs (e.g. progress bars, prompts etc.). When it is
+	 * finished it calls the RandomGenerator.getSeed()
+	 */
+	public abstract void getNewSeed(Activity myActivity);
 
-  /** 
-   *  returns the long number representing the current seed
-   */
-  public final long getCurrentSeed() {
-	  return seed;
-  }
-  
-  /**
-   * returns true if the seeder has been seeded, false otherwise
-   */
-  public boolean isSeeded() {
-	  return seed != 0;
-  }
+	/**
+	 * returns the long number representing the current seed
+	 */
+	public final long getCurrentSeed() {
+		return seed;
+	}
+
+	/**
+	 * returns true if the seeder has been seeded, false otherwise
+	 */
+	public boolean isSeeded() {
+		return seed != 0;
+	}
 }

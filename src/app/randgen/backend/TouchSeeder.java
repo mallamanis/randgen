@@ -21,9 +21,9 @@
  * THE SOFTWARE.
  */
 
-package gr.allamanis.randgen.backend;
+package app.randgen.backend;
 
-import gr.allamanis.randgen.R;
+import app.randgen.R;
 import android.app.Activity;
 import android.app.Dialog;
 import android.view.MotionEvent;
@@ -33,12 +33,13 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-/** 
- *  A SeedProvider that uses the screen to acquire the random seed
+/**
+ * A SeedProvider that uses the screen to acquire the random seed
  */
 public class TouchSeeder extends SeedProvider {
-	private int seedSamples=0;
-	private int numSeedSamples=100;
+	private int seedSamples = 0;
+	private int numSeedSamples = 100;
+
 	@Override
 	public String getDescription() {
 		return "Creates random seed using input from the touchscreen";
@@ -52,42 +53,54 @@ public class TouchSeeder extends SeedProvider {
 	@Override
 	public void getNewSeed(Activity myActivity) {
 		final Dialog dialog = new Dialog(myActivity);
-		
+
 		dialog.setContentView(R.layout.touchseedview);
 		dialog.setTitle("Seeding...");
-		seedSamples=0;
-		//Register listeners
-		final ProgressBar seedProgress= (ProgressBar) dialog.findViewById(R.id.touchSeedingProgress);
+		seedSamples = 0;
+		// Register listeners
+		final ProgressBar seedProgress = (ProgressBar) dialog
+				.findViewById(R.id.touchSeedingProgress);
 		seedProgress.setMax(numSeedSamples);
-		final LinearLayout touchField =(LinearLayout) dialog.findViewById(R.id.touchField);
-		
-		touchField.setOnTouchListener(new OnTouchListener(){
-			private float prevX=0,prevY=0;
+		final LinearLayout touchField = (LinearLayout) dialog
+				.findViewById(R.id.touchField);
+
+		touchField.setOnTouchListener(new OnTouchListener() {
+			private float prevX = 0, prevY = 0;
+
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				if (seedSamples>numSeedSamples){					
+				if (seedSamples > numSeedSamples) {
 					touchField.setOnTouchListener(null);
-					
+
 					dialog.setTitle("Seed Generated");
-					
+
 					touchField.setVisibility(View.INVISIBLE);
 					touchField.setMinimumHeight(0);
-					TextView infoText= (TextView) dialog.findViewById(R.id.touchInfo);
-					infoText.setText("Press Back to continue..."); //TODO: From .xml and also more user friendly
-					RandGenApp.getRandomGenerator().getSeed(); //Update the Generator's seed!
-					
-				}else{
-					seed=seed-Math.round((event.getX()-prevX)*(event.getY()-prevY));
-					prevX=event.getX();
-					prevY=event.getY();
+					TextView infoText = (TextView) dialog
+							.findViewById(R.id.touchInfo);
+					infoText.setText("Press Back to continue..."); // TODO: From
+																	// .xml and
+																	// also more
+																	// user
+																	// friendly
+					RandGenApp.getRandomGenerator().getSeed(); // Update the
+																// Generator's
+																// seed!
+
+				} else {
+					seed = seed
+							- Math.round((event.getX() - prevX)
+									* (event.getY() - prevY));
+					prevX = event.getX();
+					prevY = event.getY();
 					seedSamples++;
 					seedProgress.setProgress(seedSamples);
 				}
 				return true;
 			}
-			
+
 		});
-		
-		dialog.show(); 
+
+		dialog.show();
 	}
 }

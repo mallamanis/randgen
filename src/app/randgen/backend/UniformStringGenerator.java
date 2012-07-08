@@ -21,12 +21,13 @@
  * THE SOFTWARE.
  */
 
-package gr.allamanis.randgen.backend;
+package app.randgen.backend;
 
 import android.app.Activity;
 
-/** 
- *  A RandomGenerator that produces Strings of digits, characters in a random fashion.
+/**
+ * A RandomGenerator that produces Strings of digits, characters in a random
+ * fashion.
  */
 public class UniformStringGenerator extends RandomGenerator {
 
@@ -53,7 +54,7 @@ public class UniformStringGenerator extends RandomGenerator {
 		// TODO Auto-generated method stub
 		return true;
 	}
-	
+
 	@Override
 	public int getParamsLayoutID() {
 		// TODO Auto-generated method stub

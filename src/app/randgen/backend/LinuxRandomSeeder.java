@@ -21,8 +21,7 @@
  * THE SOFTWARE.
  */
 
-
-package gr.allamanis.randgen.backend;
+package app.randgen.backend;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -30,9 +29,8 @@ import java.io.IOException;
 import android.app.Activity;
 import android.widget.Toast;
 
-
-/** 
- *  Class that uses the /dev/random to produce the initial seed
+/**
+ * Class that uses the /dev/random to produce the initial seed
  */
 public class LinuxRandomSeeder extends SeedProvider {
 	@Override
@@ -48,33 +46,29 @@ public class LinuxRandomSeeder extends SeedProvider {
 	@Override
 	public void getNewSeed(Activity myActivity) {
 		String toastText = "";
-		
-		try{
-        	
-			FileInputStream myfile=new FileInputStream("/dev/random");
-			int sizeOfLong=Long.SIZE/8;
-			byte theseed[]=new byte[sizeOfLong];
-			myfile.read(theseed,0,sizeOfLong-1);
-			myfile.close();	       
-			seed=0; //Generate seed
-			for (int i=0;i<sizeOfLong;i++){
-				seed= seed << 8;
-				seed+=theseed[i];								
+
+		try {
+
+			FileInputStream myfile = new FileInputStream("/dev/random");
+			int sizeOfLong = Long.SIZE / 8;
+			byte theseed[] = new byte[sizeOfLong];
+			myfile.read(theseed, 0, sizeOfLong - 1);
+			myfile.close();
+			seed = 0; // Generate seed
+			for (int i = 0; i < sizeOfLong; i++) {
+				seed = seed << 8;
+				seed += theseed[i];
 			}
 			RandGenApp.getRandomGenerator().getSeed();
 			toastText = "Created seed.";
-        }
-        catch(IOException e){
-			toastText = "Error: "+e.getLocalizedMessage();
-        }
-        catch(Exception e){
-			toastText = "Error: "+e.getLocalizedMessage();
-        }
-		
+		} catch (IOException e) {
+			toastText = "Error: " + e.getLocalizedMessage();
+		} catch (Exception e) {
+			toastText = "Error: " + e.getLocalizedMessage();
+		}
+
 		Toast toast = Toast.makeText(myActivity, toastText, Toast.LENGTH_SHORT);
 		toast.show();
 	}
-
-	
 
 }

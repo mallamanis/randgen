@@ -21,69 +21,65 @@
  * THE SOFTWARE.
  */
 
-package gr.allamanis.randgen.backend;
+package app.randgen.backend;
 
 import android.app.Activity;
 import android.widget.EditText;
 import android.widget.Toast;
 
-/** 
- *  A RandomGenerator that produces float numbers following the normal distribution
+/**
+ * A RandomGenerator that produces float's in a uniform distribution
  */
-public class NormalFloatGenerator extends RandomGenerator {
-	/* {author=Miltiadis Allamanis}*/
-	
-	
-	/** 
-	 *  the mean (mu) of the normal distribution
+public class UniformFloatGenerator extends RandomGenerator {
+	/* {author=Miltiadis Allamanis} */
+
+	/**
+	 * the smallest number of the uniform distribution
 	 */
-	private double mean;
-	
-	/** 
-	 *  the standard deviation (sigma) of the Normal
+	public double a = 0;
+
+	/**
+	 * the biggest value of the uniform distribution
 	 */
-	private double std;
-	  
-	private boolean parametrized=false;
-	  
+	public double b = 0;
+
 	@Override
 	public String getDescription() {
-		return "Produces random numbers that follow the normal distribution";
+		return "Produces random decimal numbers that have the same (uniform) probability in a specified interval";
 	}
-	
+
 	@Override
 	public String getName() {
-		return "Normal (Gaussian)";
+		return "Uniform Real";
 	}
-	
-	@Override
-	public int getParamsLayoutID() {
-		return  gr.allamanis.randgen.R.id.normalParams;
-	}
-	
+
 	@Override
 	public String getNext() {
-		if (parametrized)
-			return Double.toString(mean+std*this.generator.nextGaussian());
-		else
+		if ((a == 0) && (b == 0))
 			return "Parameters not set";
+		return Double.toString(a + ((b - a) * this.generator.nextDouble()));
 	}
-	
+
+	@Override
+	public int getParamsLayoutID() {
+		return app.randgen.R.id.uniformFloatParams;
+	}
+
 	@Override
 	public boolean setParameters(final Activity myActivity) {
-		try{
-			EditText edit =(EditText) myActivity.findViewById(gr.allamanis.randgen.R.id.normalMean);
-			mean=Double.parseDouble(edit.getText().toString());
-			edit =(EditText) myActivity.findViewById(gr.allamanis.randgen.R.id.normalStd);
-			std=Double.parseDouble(edit.getText().toString());
-			parametrized=true; 
-			// TODO: check mean and std are reasonable
+		try {
+			EditText edit = (EditText) myActivity
+					.findViewById(app.randgen.R.id.uniformFLow);
+			a = Double.parseDouble(edit.getText().toString());
+			edit = (EditText) myActivity
+					.findViewById(app.randgen.R.id.uniformFHigh);
+			b = Double.parseDouble(edit.getText().toString());
 			return true;
-		}catch(Exception e){
-			Toast error = Toast.makeText(myActivity, gr.allamanis.randgen.R.string.paramError, Toast.LENGTH_SHORT);
+		} catch (Exception e) {
+			Toast error = Toast.makeText(myActivity,
+					app.randgen.R.string.paramError, Toast.LENGTH_SHORT);
 			error.show();
 			return false;
 		}
 	}
-
 }

@@ -21,10 +21,8 @@
  * THE SOFTWARE.
  */
 
-package gr.allamanis.randgen;
+package app.randgen;
 
-import gr.allamanis.randgen.backend.RandGenApp;
-import gr.allamanis.randgen.backend.RandomGenerator;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
@@ -34,10 +32,13 @@ import android.widget.TextView;
 import android.content.ClipboardManager;
 import android.view.View;
 import android.view.View.OnClickListener;
+import app.randgen.R;
+import app.randgen.backend.RandGenApp;
+import app.randgen.backend.RandomGenerator;
 
 /**
  * @author miltiadis
- *
+ * 
  */
 public class RandomGeneration extends Activity {
 	private TextView theGenerator;
@@ -46,35 +47,36 @@ public class RandomGeneration extends Activity {
 	private Button generate;
 	private Button copy;
 	private TextView resultPlaceholder;
-	
-	
+
 	@Override
-    public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-    	setContentView(R.layout.generation);
-    	
-    	//Set info panel
-    	theGenerator=(TextView)this.findViewById(R.id.distributionName);
-    	theSeeder=(TextView)this.findViewById(R.id.seederName);
-    	
-    	theGenerator.setText(RandGenApp.getRandomGenerator().getName());
-    	theSeeder.setText(RandGenApp.getRandomGenerator().getMySeedProvider().getName());
-    	
-    	reSeed=(Button)this.findViewById(R.id.reseedButton);
-    	generate=(Button)this.findViewById(R.id.generateNext);
-    	copy=(Button)this.findViewById(R.id.copyNumbers);
-    	
-    	resultPlaceholder=(TextView)this.findViewById(R.id.generatedNumber);
-    	
-    	OnClickListener reSeedListener=new OnClickListener(){
+		setContentView(R.layout.generation);
+
+		// Set info panel
+		theGenerator = (TextView) this.findViewById(R.id.distributionName);
+		theSeeder = (TextView) this.findViewById(R.id.seederName);
+
+		theGenerator.setText(RandGenApp.getRandomGenerator().getName());
+		theSeeder.setText(RandGenApp.getRandomGenerator().getMySeedProvider()
+				.getName());
+
+		reSeed = (Button) this.findViewById(R.id.reseedButton);
+		generate = (Button) this.findViewById(R.id.generateNext);
+		copy = (Button) this.findViewById(R.id.copyNumbers);
+
+		resultPlaceholder = (TextView) this.findViewById(R.id.generatedNumber);
+
+		OnClickListener reSeedListener = new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-					RandGenApp.getRandomGenerator().requestNewSeed(RandomGeneration.this);			
-			}    		
-    	};
-    	reSeed.setOnClickListener(reSeedListener);
-    	
-    	OnClickListener generateListener=new OnClickListener(){
+				RandGenApp.getRandomGenerator().requestNewSeed(
+						RandomGeneration.this);
+			}
+		};
+		reSeed.setOnClickListener(reSeedListener);
+
+		OnClickListener generateListener = new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				String result;
@@ -82,26 +84,29 @@ public class RandomGeneration extends Activity {
 					result = RandGenApp.getRandomGenerator().getNext();
 				} else {
 					try {
-						result = RandGenApp.getRandomGenerator().getNextNonRepeating();
+						result = RandGenApp.getRandomGenerator()
+								.getNextNonRepeating();
 					} catch (RandomGenerator.OnlyRepeatsFound e) {
 						result = e.getMessage();
 					}
 				}
-				
-				resultPlaceholder.setText(result+"\n"+resultPlaceholder.getText());	
-			}    		
-    	};
-    	generate.setOnClickListener(generateListener);
-    	
-    	OnClickListener copyListener= new OnClickListener(){
+
+				resultPlaceholder.setText(result + "\n"
+						+ resultPlaceholder.getText());
+			}
+		};
+		generate.setOnClickListener(generateListener);
+
+		OnClickListener copyListener = new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				ClipboardManager clip= (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
-				clip.setPrimaryClip(ClipData.newPlainText("Random data from randgen", resultPlaceholder.getText()));
+				ClipboardManager clip = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+				clip.setPrimaryClip(ClipData.newPlainText(
+						"Random data from randgen", resultPlaceholder.getText()));
 			}
-    	};
-    	copy.setOnClickListener(copyListener);
-    	
+		};
+		copy.setOnClickListener(copyListener);
+
 	}
 
 }
