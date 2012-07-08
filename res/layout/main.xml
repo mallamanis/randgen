@@ -5,6 +5,7 @@
     android:layout_height="fill_parent"
     
     >
+
     <TextView  
   		  android:layout_width="fill_parent" 
  		   android:layout_height="wrap_content" 
@@ -39,33 +40,49 @@
  	    android:layout_height="60dp"
  	    android:drawSelectorOnTop="true"
  	    android:textSize="17sp" />
+ 	
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:orientation="horizontal"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"	    
+	>
+	    
+	 	<TextView
+	 	    android:layout_width="wrap_content"
+	 	    android:layout_height="wrap_content"
+	 	    android:paddingLeft="10dp"
+	 	    android:text="@string/setDistParamIcon"
+	 	    android:textStyle = "italic"
+	 	    android:textSize="17sp" />
+	 	
+		<TextView
+		    android:layout_width="241dp"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="left"
+		    android:paddingLeft="10dp"
+		    android:text="@string/setDistParam"
+		    android:textSize="17sp" />
+	</LinearLayout>
 	
-<Button
-	android:id="@+id/setDistributionParametersButton"
-	android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-	android:text="@string/setDistParam"
-	android:drawableLeft="@drawable/parameter"/>
+	<Button
+		android:id="@+id/setSeedButton"
+		android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+		android:text="@string/setSeedParam"
+		android:drawableLeft="@drawable/cardselected"/>
 	
-<Button
-	android:id="@+id/setSeedButton"
-	android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-	android:text="@string/setSeedParam"
-	android:drawableLeft="@drawable/cardselected"/>
-
-<CheckBox
-    android:id="@+id/chkAllowRepeats"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="@string/allow_repeats" 
-    android:checked = "true" />
-
-<Button
-    android:id="@+id/startGeneration"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:drawableLeft="@drawable/icon"
-    android:text="@string/startGenerating" />
+	<CheckBox
+	    android:id="@+id/chkAllowRepeats"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:text="@string/allow_repeats" 
+	    android:checked = "true" />
+	
+	<Button
+	    android:id="@+id/startGeneration"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:drawableLeft="@drawable/icon"
+	    android:text="@string/startGenerating" />
     
 </LinearLayout>

@@ -2,6 +2,7 @@
 <resources>
     <string name="act">Press the button to generate a random number</string>
     <string name="setDistParam">Set distribution parameters</string>
+    <string name="setDistParamIcon">ƒ( θ )</string>
     <string name="setSeedParam">Create random seed</string>
     <string name="selDistr">Select Distribution</string>
     <string name="selSeeder">Select Seed Provider</string>
@@ -17,8 +18,6 @@
     <string name="mean">Mean</string>
     <string name="std">Standard Deviation</string>
     <string name="lambda">Lambda (mean)</string>
-    
-    
     <string name="paramError">Wrong parameters entered. Please retry</string>
     <string name="errNoDistr">Please select a distribution and seeder first</string>
     <string name="errNoAccelerometer">No accelerometer found. Random seed will be generated with the milliseconds time</string>
@@ -30,10 +29,7 @@
     <string name="takeAccelSeed">Please shake randomly the phone to produce random seed</string>
     <string name="takeCompassSeed">Please rotate randomly the phone to produce random seed</string>
     <string name="takeTouchSeed">Please move your finger in the gray screen to produce random seed</string>
-    
     <string name="generationResults">RanGen has generated:</string>
-    
-    
     <string name="eula_title">License Agreement</string>
     <string name="eula_accept">Accept</string>
     <string name="eula_refuse">Don\'t Accept</string>
@@ -41,6 +37,4 @@
     <string name="copy_data">Copy Data</string>
     <string name="default_words">4</string>
     <string name="ok">OK</string>
-    
-    
 </resources>
