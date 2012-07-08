@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="gr.allamanis.randgen" android:versionName="1.7" android:versionCode="14">
+      package="gr.allamanis.randgen" android:versionName="1.8" android:versionCode="15">
       
 	<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="14"/>
-	<uses-configuration android:reqHardKeyboard="false" android:reqKeyboardType="twelvekey" android:reqTouchScreen="undefined"/>   
+	<uses-configuration android:reqHardKeyboard="false" android:reqKeyboardType="undefined" android:reqTouchScreen="undefined"/>   
 	
 	<supports-screens android:largeScreens="true"
     android:normalScreens="true" android:smallScreens="true"
