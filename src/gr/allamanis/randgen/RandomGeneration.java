@@ -24,12 +24,14 @@
 package gr.allamanis.randgen;
 
 import gr.allamanis.randgen.backend.RandGenApp;
+import gr.allamanis.randgen.backend.RandomGenerator;
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Context;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
-import android.text.ClipboardManager;
+import android.content.ClipboardManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -75,23 +77,28 @@ public class RandomGeneration extends Activity {
     	OnClickListener generateListener=new OnClickListener(){
 			@Override
 			public void onClick(View v) {
+				String result;
+				if (RandGenApp.getRandomGenerator().repeating) {
+					result = RandGenApp.getRandomGenerator().getNext();
+				} else {
+					try {
+						result = RandGenApp.getRandomGenerator().getNextNonRepeating();
+					} catch (RandomGenerator.OnlyRepeatsFound e) {
+						result = e.getMessage();
+					}
+				}
 				
-					resultPlaceholder.setText(RandGenApp.getRandomGenerator().getNext()+"\n"+resultPlaceholder.getText());	
-					//TODO: Keep history
+				resultPlaceholder.setText(result+"\n"+resultPlaceholder.getText());	
 			}    		
     	};
     	generate.setOnClickListener(generateListener);
     	
     	OnClickListener copyListener= new OnClickListener(){
-
 			@Override
 			public void onClick(View v) {
 				ClipboardManager clip= (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
-				clip.setText(resultPlaceholder.getText());
-				
+				clip.setPrimaryClip(ClipData.newPlainText("Random data from randgen", resultPlaceholder.getText()));
 			}
-    		
-    		
     	};
     	copy.setOnClickListener(copyListener);
     	

@@ -28,16 +28,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import android.app.Activity;
-import android.app.Dialog;
+import android.widget.Toast;
 
 
 /** 
  *  Class that uses the /dev/random to produce the initial seed
  */
 public class LinuxRandomSeeder extends SeedProvider {
-
-	private Dialog dialog;
-	
 	@Override
 	public String getDescription() {
 		return "Generates Random Seed using Linux random generator";
@@ -45,11 +42,13 @@ public class LinuxRandomSeeder extends SeedProvider {
 
 	@Override
 	public String getName() {
-		return "Linux Random Generator";
+		return "Linux /dev/random";
 	}
 
 	@Override
 	public void getNewSeed(Activity myActivity) {
+		String toastText = "";
+		
 		try{
         	
 			FileInputStream myfile=new FileInputStream("/dev/random");
@@ -63,23 +62,17 @@ public class LinuxRandomSeeder extends SeedProvider {
 				seed+=theseed[i];								
 			}
 			RandGenApp.getRandomGenerator().getSeed();
-			dialog=new Dialog(myActivity);
-			dialog.setTitle("Done");
-			dialog.show();
-			
-        	
+			toastText = "Created seed.";
         }
         catch(IOException e){
-        	dialog=new Dialog(myActivity);
-			dialog.setTitle("Error: "+e.getLocalizedMessage());
-			dialog.show();
+			toastText = "Error: "+e.getLocalizedMessage();
         }
         catch(Exception e){
-        	dialog=new Dialog(myActivity);
-			dialog.setTitle("Error: "+e.getLocalizedMessage() );
-			dialog.show();
+			toastText = "Error: "+e.getLocalizedMessage();
         }
 		
+		Toast toast = Toast.makeText(myActivity, toastText, Toast.LENGTH_SHORT);
+		toast.show();
 	}
 
 	

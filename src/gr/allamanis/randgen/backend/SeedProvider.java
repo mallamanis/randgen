@@ -63,4 +63,11 @@ public abstract class SeedProvider {
   public final long getCurrentSeed() {
 	  return seed;
   }
+  
+  /**
+   * returns true if the seeder has been seeded, false otherwise
+   */
+  public boolean isSeeded() {
+	  return seed != 0;
+  }
 }

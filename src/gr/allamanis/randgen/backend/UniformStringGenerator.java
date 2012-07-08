@@ -49,9 +49,14 @@ public class UniformStringGenerator extends RandomGenerator {
 	}
 
 	@Override
-	public void setParameters(Activity myActivity) {
+	public boolean setParameters(Activity myActivity) {
 		// TODO Auto-generated method stub
-		
+		return true;
 	}
-
+	
+	@Override
+	public int getParamsLayoutID() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
+}

@@ -36,10 +36,11 @@ import android.app.ProgressDialog;
 
 
 /** 
- *  An seeder that uses the accelerometer to create a random seed
+ *  A seeder that uses the accelerometer to create a random seed
  */
 public class AccelerometerSeeder extends SeedProvider {
-
+	/* {author=Miltiadis Allamanis}*/
+	
 	private ProgressDialog dialog; 
 	private int maxSamples=20;
 	
@@ -50,7 +51,7 @@ public class AccelerometerSeeder extends SeedProvider {
 
 	@Override
 	public String getName() {
-		return "Accelerometer Seeding";
+		return "Accelerometer";
 	}
 
 	@Override
@@ -84,14 +85,12 @@ public class AccelerometerSeeder extends SeedProvider {
 			public void onSensorChanged(SensorEvent event) {
 				
 				if (sampleNo<maxSamples){
-					 
 					if(event.values[0]!=0 && event.values[1]!=0 && event.values[2]!=0){
 					 	sampleNo++;
 					 	dialog.incrementProgressBy(1);
-						float randNum = event.values[SensorManager.DATA_X]*event.values[SensorManager.DATA_Y]/event.values[SensorManager.DATA_Z] +event.values[2]*(event.timestamp % 13);
+						float randNum = event.values[0]*event.values[1]/event.values[2] +event.values[2]*(event.timestamp % 13);
 						generatedSeed=(generatedSeed * Float.floatToRawIntBits(randNum)) % (generatedSeed + Float.floatToRawIntBits(randNum));
 					};
-					
 				}else{
 					if (generatedSeed==0){
 						maxSamples+=10;
@@ -107,16 +106,10 @@ public class AccelerometerSeeder extends SeedProvider {
 					//dialog.dismiss();
 					dialog.setMessage("New seed generated!");
 					RandGenApp.getRandomGenerator().getSeed(); //Update the Generator's seed!
-					
 				}
-				
 			}
-        	
         };
         
         sensMan.registerListener(evtLst, myAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-    
-		
 	}
-  /* {author=Miltiadis Allamanis}*/
 }
