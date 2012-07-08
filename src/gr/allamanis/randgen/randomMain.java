@@ -29,6 +29,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
@@ -64,6 +65,10 @@ public class randomMain extends Activity {
 
     private ArrayList<RandomGenerator> Generators;
     private ArrayList<SeedProvider> Seeders;
+    
+    // index into arrays - used for saving preferences
+    private int generatorNum = -1; 
+    private int seederNum = -1;
 	
     /** Called when the activity is first created. */
     @Override
@@ -152,6 +157,8 @@ public class randomMain extends Activity {
         OnItemSelectedListener distributionSelectListener=new OnItemSelectedListener(){
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				generatorNum = arg2; // for prefs
+				
 				SeedProvider currentSeeder=RandGenApp.getRandomGenerator().getMySeedProvider();
 				RandGenApp.setRandomGenerator(Generators.get(arg2)).setSeedProvider(currentSeeder);
 				
@@ -179,6 +186,7 @@ public class randomMain extends Activity {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
+				seederNum = arg2;
 				RandGenApp.getRandomGenerator().setSeedProvider(Seeders.get(arg2)); //The actual ID as defined by RandGenApp, is as it is sorted
 			}
 
@@ -189,8 +197,29 @@ public class randomMain extends Activity {
         };
         selectSeeder.setOnItemSelectedListener(seederSelectListener);
         
-        //Set defaults
-        RandGenApp.setRandomGenerator(Generators.get(0)).setSeedProvider(Seeders.get(0));
+        // Restore previous session / set defaults
+        SharedPreferences settings = getPreferences(MODE_PRIVATE);
+    	generatorNum = settings.getInt("generator", 0); // default generator = 0
+    	selectDistribution.setSelection(generatorNum);
+    	seederNum = settings.getInt("seeder", 0);
+    	selectSeeder.setSelection(seederNum);
+    	RandGenApp.setRandomGenerator(Generators.get(generatorNum)).setSeedProvider(Seeders.get(seederNum));
+    	((CheckBox) findViewById(R.id.chkAllowRepeats)).setChecked(settings.getBoolean("allowRepeats", true));
+    	
         currentLayout = RandGenApp.getRandomGenerator().getParamsLayoutID(); // the spinner callback will make this view visible
     }
+    
+    @Override
+    protected void onStop(){
+    	super.onStop();
+
+    	SharedPreferences settings = getPreferences(MODE_PRIVATE);
+    	SharedPreferences.Editor editor = settings.edit();
+    	
+    	editor.putBoolean("allowRepeats", ((CheckBox) findViewById(R.id.chkAllowRepeats)).isChecked() );
+    	editor.putInt("generator", generatorNum);
+    	editor.putInt("seeder", seederNum);
+    	
+    	editor.commit();
+	}
 }
