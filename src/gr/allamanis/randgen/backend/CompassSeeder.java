@@ -49,7 +49,7 @@ public class CompassSeeder extends SeedProvider {
 
 	@Override
 	public String getName() {
-		return "Compass Seeding";
+		return "Compass";
 	}
 
 	@Override

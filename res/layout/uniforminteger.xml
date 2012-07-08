@@ -1,53 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-  	android:layout_width="wrap_content"
-  	android:layout_height="wrap_content"
-  	android:orientation="vertical">
-  
-	<TextView android:layout_width="fill_parent"
- 	 			android:layout_height="wrap_content"
- 	 			android:id="@+id/notification"
- 	 			android:text="@string/paramError"
- 	 			android:visibility="gone" 
- 	 			android:paddingBottom="10dp"/>
- 	 			
-	<LinearLayout
-	    xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:layout_width="254dp"
-	    android:layout_height="wrap_content" >
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="254dp"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp" 
+    android:visibility="gone" 
+	android:id="@+id/uniformIntegerParams"
+    >
 
-	    <TextView
-	        android:layout_width="40dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="0.25"
-	        android:text="@string/from" />
+    <TextView
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.25"
+        android:text="@string/from" />
 
-	    <EditText
-	        android:id="@+id/uniformLow"
-	        android:layout_width="65dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="0.39"
-	        android:inputType= "numberSigned" />
+    <EditText
+        android:id="@+id/uniformLow"
+        android:layout_width="65dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.39"
+        android:inputType= "numberSigned" />
 
-	    <TextView
-	        android:layout_width="30dp"
-	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="10dp"
-	        android:text="@string/to" />
+    <TextView
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="@string/to" />
 
-	    <EditText
-	        android:id="@+id/uniformHigh"
-	        android:layout_width="65dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="0.31"
-	        android:inputType= "numberSigned" />
-
-	    <Button
-	        android:id="@+id/uniIntOK"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/ok" />
-	</LinearLayout>
-
+    <EditText
+        android:id="@+id/uniformHigh"
+        android:layout_width="65dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.31"
+        android:inputType= "numberSigned" />
 </LinearLayout>

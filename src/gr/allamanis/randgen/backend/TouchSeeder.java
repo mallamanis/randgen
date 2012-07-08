@@ -37,7 +37,6 @@ import android.widget.TextView;
  *  A SeedProvider that uses the screen to acquire the random seed
  */
 public class TouchSeeder extends SeedProvider {
-
 	private int seedSamples=0;
 	private int numSeedSamples=100;
 	@Override
@@ -47,7 +46,7 @@ public class TouchSeeder extends SeedProvider {
 
 	@Override
 	public String getName() {
-		return "Touchscreen Seeding";
+		return "Touchscreen";
 	}
 
 	@Override
@@ -89,9 +88,6 @@ public class TouchSeeder extends SeedProvider {
 			
 		});
 		
-		
 		dialog.show(); 
-		
 	}
-
-	}
+}

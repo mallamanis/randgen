@@ -51,7 +51,7 @@ public class AccelerometerSeeder extends SeedProvider {
 
 	@Override
 	public String getName() {
-		return "Accelerometer Seeding";
+		return "Accelerometer";
 	}
 
 	@Override

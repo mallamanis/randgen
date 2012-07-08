@@ -32,13 +32,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.res.AssetManager;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.Toast;
 import android.widget.EditText;
-import android.widget.TextView;
 
 /** 
  *  A RandomGenerator that produces pass phrases
@@ -51,8 +47,6 @@ public class PassPhraseGenerator extends RandomGenerator {
 	 */
 	protected int numWords = 4;
 	
-	private Dialog dialog;
-
 	protected String[] dict;
 	
 	private void initDict() throws IOException {
@@ -123,27 +117,23 @@ public class PassPhraseGenerator extends RandomGenerator {
 	}
 	
 	@Override
-	public void setParameters(final Activity myActivity) {
-		
-		dialog=new Dialog(myActivity);
-		dialog.setTitle(gr.allamanis.randgen.R.string.passPhraseParam);
-		dialog.setContentView(gr.allamanis.randgen.R.layout.passphrase);
-		dialog.show();
-		Button done=(Button)dialog.findViewById(gr.allamanis.randgen.R.id.passPhraseOK);
-		OnClickListener doneButton=new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				try{
-					EditText edit =(EditText) dialog.findViewById(gr.allamanis.randgen.R.id.passPhraseWords);
-					numWords=Integer.parseInt(edit.getText().toString());
-					
-					dialog.dismiss();
-				}catch(Exception e){
-					TextView done=(TextView)dialog.findViewById(gr.allamanis.randgen.R.id.notification);
-					done.setVisibility(View.VISIBLE);
-				}
-			}		
-		};
-		done.setOnClickListener(doneButton);	
+	public int getParamsLayoutID() {
+		return gr.allamanis.randgen.R.id.passPhraseParams;
+	}
+	
+	@Override
+	public boolean setParameters(final Activity myActivity) {
+		try{
+			EditText edit =(EditText) myActivity.findViewById(gr.allamanis.randgen.R.id.passPhraseWords);
+			numWords=Integer.parseInt(edit.getText().toString());
+			if (numWords < 1){
+				throw new Exception("Passphrase must have at least one word.");
+			} 
+			return true;
+		}catch(Exception e){
+			Toast error = Toast.makeText(myActivity, gr.allamanis.randgen.R.string.paramError, Toast.LENGTH_SHORT);
+			error.show();
+			return false;
+		}
 	}
 }

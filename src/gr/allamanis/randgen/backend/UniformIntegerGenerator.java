@@ -24,71 +24,58 @@
 package gr.allamanis.randgen.backend;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
 /** 
  *  A RandomGenerator that produces random integers
  */
 public class UniformIntegerGenerator extends RandomGenerator {
-  /* {author=Miltiadis Allamanis}*/
-
-  /** 
-   *  the smallest integer to be created
-   */
-  protected int a;
-
-  /** 
-   *  the biggest integer to be created
-   */
-  protected int b;
-  
-  private Dialog dialog;
-
-@Override
-public String getDescription() {
-	return "Produces random integers that have the same (uniform) probability in a specified interval";
-}
-
-@Override
-public String getName() {
-	return "Uniform Integer" ;
-}
-
-@Override
-public String getNext() {	
-	if (a==b) return "Parameters not Set";//TODO: set for R.string?
-	return Integer.toString(a+this.generator.nextInt(b-a+1));
-}
-
-@Override
-public void setParameters(final Activity myActivity) {
+	/* {author=Miltiadis Allamanis}*/
 	
-	dialog=new Dialog(myActivity);
-	dialog.setTitle(gr.allamanis.randgen.R.string.unifIntParam);
-	dialog.setContentView(gr.allamanis.randgen.R.layout.uniforminteger);
-	dialog.show();
-	Button done=(Button)dialog.findViewById(gr.allamanis.randgen.R.id.uniIntOK);
-	OnClickListener doneButton=new OnClickListener(){
-		@Override
-		public void onClick(View v) {
-			try{
-				EditText edit =(EditText) dialog.findViewById(gr.allamanis.randgen.R.id.uniformLow);
-				a=Integer.parseInt(edit.getText().toString());
-				edit =(EditText) dialog.findViewById(gr.allamanis.randgen.R.id.uniformHigh);
-				b=Integer.parseInt(edit.getText().toString()); 
-				dialog.dismiss();
-			}catch(Exception e){
-				TextView done=(TextView)dialog.findViewById(gr.allamanis.randgen.R.id.notification);
-				done.setVisibility(View.VISIBLE);
-			}
-		}		
-	};
-	done.setOnClickListener(doneButton);	
-}
-
+	/** 
+	 *  the smallest integer to be created
+	 */
+	 protected int a;
+	
+	/** 
+	 *  the biggest integer to be created
+	 */
+	protected int b;
+	  
+	@Override
+	public String getDescription() {
+		return "Produces random integers that have the same (uniform) probability in a specified interval";
+	}
+	
+	@Override
+	public String getName() {
+		return "Uniform Integer" ;
+	}
+	
+	@Override
+	public int getParamsLayoutID() {
+		return  gr.allamanis.randgen.R.id.uniformIntegerParams;
+	}
+	
+	@Override
+	public String getNext() {	
+		if (a==b) return "Parameters not Set";//TODO: set for R.string?
+		return Integer.toString(a+this.generator.nextInt(b-a+1));
+	}
+	
+	@Override
+	public boolean setParameters(final Activity myActivity) {
+		try{
+			EditText edit =(EditText) myActivity.findViewById(gr.allamanis.randgen.R.id.uniformLow);
+			a=Integer.parseInt(edit.getText().toString());
+			edit =(EditText) myActivity.findViewById(gr.allamanis.randgen.R.id.uniformHigh);
+			b=Integer.parseInt(edit.getText().toString()); 
+			return true;
+		}catch(Exception e){
+			Toast error = Toast.makeText(myActivity, gr.allamanis.randgen.R.string.paramError, Toast.LENGTH_SHORT);
+			error.show();
+			return false;
+		}
+	}
 }

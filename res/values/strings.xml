@@ -18,7 +18,7 @@
     <string name="mean">Mean</string>
     <string name="std">Standard Deviation</string>
     <string name="lambda">Lambda (mean)</string>
-    <string name="paramError">Wrong parameters entered. Please retry</string>
+    <string name="paramError">Invalid or missing parameters; please retry.</string>
     <string name="errNoDistr">Please select a distribution and seeder first</string>
     <string name="errNoAccelerometer">No accelerometer found. Random seed will be generated with the milliseconds time</string>
     <string name="errNoCompass">No compass found. Random seed will be generated with the milliseconds time</string>

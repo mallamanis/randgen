@@ -64,6 +64,12 @@
 		    android:textSize="17sp" />
 	</LinearLayout>
 	
+	<include layout="@layout/uniforminteger" />
+	<include layout="@layout/uniformfloat" />
+	<include layout="@layout/poisson" />
+	<include layout="@layout/normal" />
+	<include layout="@layout/passphrase" />	
+	
 	<Button
 		android:id="@+id/setSeedButton"
 		android:layout_width="fill_parent" 

@@ -97,13 +97,19 @@ public abstract class RandomGenerator {
 
   /** 
    *  presents a dialog/ activity to set the necessary parameters of the Generator
+   *  returns false if the parameters weren't correctly set, true otherwise
    */
-  public abstract void setParameters(Activity myActivity);
+  public abstract boolean setParameters(Activity myActivity);
 
   /** 
-   *  returns a String containing the name of the generator
+   *  returns a String containing the short name (for display in the drop down)
    */
   public abstract String getName();
+  
+  /** 
+   *  returns the id of the parameter layout associated with this generator
+   */
+  public abstract int getParamsLayoutID();
 
   /** 
    *  returns a String containing the description of the generator

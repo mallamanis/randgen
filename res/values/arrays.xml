@@ -1,18 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-   <string-array name="distributionTypes">
-    	<item>Integer (Uniform)</item>
-    	<item>Real (Uniform) </item>
-    	<item>Real (Gaussian) </item>
-    	<item>Poisson</item>
-    	<item >Pass Phrase</item>
-    </string-array>
-    
-      <string-array name="seedTypes">
-    	<item>Accelerometer</item>
-    	<item>Linux /dev/random</item>
-    	<item>Compass</item>
-    	<item>Touchscreen</item>
-    </string-array>
 </resources>
